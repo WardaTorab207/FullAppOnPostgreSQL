@@ -4,8 +4,11 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from "typeorm";
 import { File } from "./file.js";
+import { GenreSeries } from "./genreSeries.js";
+import {Season } from "./season.js";
 
 @Entity()
 export class Series {
@@ -25,4 +28,10 @@ trailer!: File | null;
 @ManyToOne(() => File, { nullable: true, cascade: true, onDelete: "SET NULL" })
 @JoinColumn({ name: "thumbnail_id" })
 thumbnail!: File | null;
+
+@OneToMany(() => GenreSeries, (genreSeries) => genreSeries.series)
+genreSeries!: GenreSeries[];
+
+@OneToMany(() => Season, (season) => season.series)
+seasons!: Season[];
 }
