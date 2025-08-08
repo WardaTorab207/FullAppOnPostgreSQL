@@ -3,9 +3,11 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
-  JoinColumn
+  JoinColumn,
+  OneToMany
 } from "typeorm";
 import { Series } from "./series";
+import { Episode }  from "./episode";
 
 @Entity()
 export class Season {
@@ -21,4 +23,7 @@ export class Season {
   @ManyToOne(() => Series, (series) => series.seasons, { onDelete: "CASCADE" })
   @JoinColumn({ name: "seriesId" })
   series!: Series;
+
+  @OneToMany(() => Episode, (episode) => episode.season)
+episodes!: Episode[];
 }

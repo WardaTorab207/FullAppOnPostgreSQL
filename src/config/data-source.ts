@@ -6,6 +6,7 @@ import {File} from "../entities/file.js";
 import {Series} from "../entities/series.js";
 import { GenreSeries} from "../entities/genreSeries.js";
 import {Season} from "../entities/season.js";
+import { Episode } from "../entities/episode.js";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -16,7 +17,7 @@ export const AppDataSource = new DataSource({
   database: "ipvt_db",
   synchronize: true,
   logging: false,
-  entities: [User,Genre,File,Series,GenreSeries,Season],
+  entities: [User,Genre,File,Series,GenreSeries,Season,Episode],
   migrations: [],
   subscribers: [],
 });
