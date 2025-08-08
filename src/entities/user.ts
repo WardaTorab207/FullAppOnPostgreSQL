@@ -3,7 +3,9 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
+  OneToMany
 } from "typeorm";
+import {Stream } from './stream';
 
 @Entity()
 export class User {
@@ -21,4 +23,7 @@ export class User {
 
   @Column({ type: "varchar"})
   password!: string;
+
+  @OneToMany(() => Stream, (stream) => stream.episode)
+streams!: Stream[];
 }

@@ -4,9 +4,11 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  OneToMany
 } from "typeorm";
 import { Season } from "./season";
 import { File } from "./file";
+import { Stream } from "./stream"
 
 @Entity()
 export class Episode {
@@ -26,4 +28,7 @@ export class Episode {
   @ManyToOne(() => Season, (season) => season.episodes)
   @JoinColumn({ name: "season_id" })
   season!: Season;
+
+  @OneToMany(() => Stream, (stream) => stream.episode)
+streams!: Stream[];
 }
