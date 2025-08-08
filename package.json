@@ -1,6 +1,7 @@
 {
   "devDependencies": {
     "@types/express": "^5.0.3",
+    "@types/multer": "^2.0.0",
     "@types/node": "^24.2.0",
     "ts-node-dev": "^2.0.0",
     "tsx": "^4.20.3",
@@ -47,6 +48,7 @@
     "minimatch": "^3.1.2",
     "minimist": "^1.2.8",
     "mkdirp": "^1.0.4",
+    "multer": "^2.0.2",
     "normalize-path": "^3.0.0",
     "once": "^1.4.0",
     "path-is-absolute": "^1.0.1",
