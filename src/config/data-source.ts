@@ -3,6 +3,7 @@ import { DataSource } from "typeorm";
 import { User } from "../entities/user.js";
 import { Genre } from "../entities/genre.js";
 import {File} from "../entities/file.js";
+import {Series} from "../entities/series.js";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -13,7 +14,7 @@ export const AppDataSource = new DataSource({
   database: "ipvt_db",
   synchronize: true,
   logging: false,
-  entities: [User,Genre,File],
+  entities: [User,Genre,File,Series],
   migrations: [],
   subscribers: [],
 });
