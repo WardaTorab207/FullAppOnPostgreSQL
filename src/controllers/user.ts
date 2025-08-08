@@ -2,6 +2,8 @@ import "reflect-metadata";
 import { Request, Response } from "express";
 import { AppDataSource } from "../config/data-source";
 import { User } from "../entities/user";
+import {Stream} from "../entities/stream";
+import {Episode} from "../entities/episode";
 
 const userRepo = AppDataSource.getRepository(User);
 
@@ -109,6 +111,42 @@ updateUser : async (req: Request, res: Response) => {
   } catch (err) {
     console.error("Error deleting user:", err);
     res.status(500).json({ message: "Server error" });
+  }
+},
+getUserStreams : async (req: Request, res: Response) => {
+  const userId = parseInt(req.params.id);
+  if (isNaN(userId)) return res.status(400).json({ message: "Invalid user ID" });
+
+  try {
+    const streams = await AppDataSource
+      .getRepository(Stream)
+      .createQueryBuilder("stream")
+      .leftJoinAndSelect("stream.episode", "episode")
+      .where("stream.user.id = :userId", { userId })
+      .getMany();
+
+    res.json(streams);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error fetching user streams" });
+  }
+},
+ getUserStreamEpisodes : async (req: Request, res: Response) => {
+  const userId = parseInt(req.params.id);
+  if (isNaN(userId)) return res.status(400).json({ message: "Invalid user ID" });
+
+  try {
+    const episodes = await AppDataSource
+      .getRepository(Episode)
+      .createQueryBuilder("episode")
+      .innerJoin("episode.streams", "stream")
+      .where("stream.user.id = :userId", { userId })
+      .getMany();
+
+    res.json(episodes);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error fetching user episodes" });
   }
 },
 };

@@ -2,6 +2,8 @@ import "reflect-metadata";
 import { Request, Response } from "express";
 import { AppDataSource } from "../config/data-source";
 import { Genre } from "../entities/genre";
+import { GenreSeries } from "../entities/genreSeries";
+import { Season } from "../entities/season";
 
 const genreRepo = AppDataSource.getRepository(Genre);
 
@@ -107,5 +109,43 @@ export const deleteGenre = async (req: Request, res: Response) => {
     res.json({ message: "Genre deleted" });
   } catch (err) {
     res.status(500).json({ message: "Error deleting genre" });
+  }
+};
+
+export const getGenreSeries = async (req: Request, res: Response) => {
+  const genreId = parseInt(req.params.id);
+  if (isNaN(genreId))
+    return res.status(400).json({ message: "Invalid genre ID" });
+
+  try {
+    const series = await AppDataSource.getRepository(GenreSeries)
+      .createQueryBuilder("genreSeries")
+      .leftJoinAndSelect("genreSeries.series", "series")
+      .leftJoinAndSelect("series.thumbnail", "thumbnail")
+      .where("genreSeries.genreId = :genreId", { genreId })
+      .getMany();
+    res.json(series);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error fetching genre series" });
+  }
+};
+
+export const getGenreSeriesSeasons = async (req: Request, res: Response) => {
+  const genreId = parseInt(req.params.id);
+  if (isNaN(genreId))
+    return res.status(400).json({ message: "Invalid genre ID" });
+
+  try {
+    const seasons = await AppDataSource.getRepository(GenreSeries)
+      .createQueryBuilder("genreSeries")
+      .leftJoinAndSelect("genreSeries.series", "series")
+      .leftJoinAndSelect("series.seasons", "season")
+      .where("genreSeries.genreId = :genreId", { genreId})
+      .getMany();
+    res.json(seasons);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error fetching genre series seasons" });
   }
 };

@@ -6,6 +6,8 @@ import {
   createGenre,
   updateGenre,
   deleteGenre,
+  getGenreSeries,
+  getGenreSeriesSeasons
 } from "../controllers/genre";
 
 const router = Router();
@@ -15,5 +17,7 @@ router.get("/:id", getGenreById);
 router.post("/", createGenre);
 router.put("/:id", updateGenre);
 router.delete("/:id", deleteGenre);
+router.get('/:id/series', getGenreSeries);
+router.get('/:id/series/seasons', getGenreSeriesSeasons);
 
 export default router;
