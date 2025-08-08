@@ -35,7 +35,7 @@ getAllFiles: async (req: Request, res: Response) => {
     try {
       const files = await fileRepository
         .createQueryBuilder("file")
-        .orderBy("file.createdAt", "DESC") // optional: latest files first
+        .orderBy("file.id", "ASC") // optional: latest files first
         .getMany();
 
       res.status(200).json({ files });
