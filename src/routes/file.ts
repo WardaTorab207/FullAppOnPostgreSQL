@@ -1,7 +1,7 @@
 // src/routes/file.routes.ts
 import { Router } from "express";
 import multer from "multer";
-import { uploadFile } from "../controllers/file";
+import {FileController}  from "../controllers/file";
 import path from "path";
 
 // Configure multer storage
@@ -19,6 +19,7 @@ const upload = multer({ storage });
 
 const router = Router();
 
-router.post("/upload", upload.single("file"), uploadFile);
+router.post("/upload", upload.single("file"), FileController.uploadFile);
+router.get("/",FileController.getAllFiles);
 
 export default router;
