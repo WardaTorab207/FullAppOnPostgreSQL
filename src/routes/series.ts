@@ -8,5 +8,7 @@ router.get("/", SeriesController.getAll);
 router.get("/:id", SeriesController.getById);
 router.patch("/:id", SeriesController.update);
 router.delete("/:id", SeriesController.delete);
+router.get("/:id/seasons", SeriesController.getSeasonsBySeriesId);
+router.get("/:id/seasons/episodes", SeriesController.getEpisodesOfSeasonsBySeriesId);
 
 export default router;

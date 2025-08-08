@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { AppDataSource } from "../config/data-source";
 import { Series } from "../entities/series.js";
 import { File } from "../entities/file.js";
+import {Season} from "../entities/season";
 
 const seriesRepo = AppDataSource.getRepository(Series);
 const fileRepo = AppDataSource.getRepository(File);
@@ -105,4 +106,41 @@ export const SeriesController = {
       res.status(500).json({ message: "Failed to delete series" });
     }
   },
+async getSeasonsBySeriesId(req: Request, res: Response) {
+  try {
+    const seriesId = parseInt(req.params.id);
+
+    const seasons = await AppDataSource
+      .getRepository(Season)
+      .createQueryBuilder("season")
+      .where("season.seriesId = :seriesId", { seriesId })
+      .getMany();
+
+    return res.status(200).json({
+      message: `Seasons for Series ID ${seriesId}`,
+      data: seasons
+    });
+  } catch (error) {
+    return res.status(500).json({ message: "Error fetching seasons", error });
+  }
+},
+ async getEpisodesOfSeasonsBySeriesId(req: Request, res: Response) {
+  try {
+    const seriesId = parseInt(req.params.id);
+
+    const seasons = await AppDataSource
+      .getRepository(Season)
+      .createQueryBuilder("season")
+      .leftJoinAndSelect("season.episodes", "episode")
+      .where("season.seriesId = :seriesId", { seriesId })
+      .getMany();
+
+    return res.status(200).json({
+      message: `Seasons and Episodes for Series ID ${seriesId}`,
+      data: seasons
+    });
+  } catch (error) {
+    return res.status(500).json({ message: "Error fetching seasons and episodes", error });
+  }
+},
 };
