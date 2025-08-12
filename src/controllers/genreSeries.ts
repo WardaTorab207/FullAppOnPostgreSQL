@@ -9,7 +9,7 @@ const genreRepository = AppDataSource.getRepository(Genre);
 const seriesRepository = AppDataSource.getRepository(Series);
 
 export class GenreSeriesController {
-  static async create(req: Request, res: Response) {
+   async create(req: Request, res: Response) {
     try {
       const { genreId, seriesId } = req.body;
       console.log(genreId,seriesId);
@@ -35,7 +35,7 @@ export class GenreSeriesController {
     }
   }
 
-  static async getAll(req: Request, res: Response) {
+   async getAll(req: Request, res: Response) {
     try {
       const all = await genreSeriesRepository.find({
         relations: ["genre", "series"]

@@ -3,7 +3,6 @@ import { AppDataSource } from "../config/data-source";
 import { Stream } from "../entities/stream";
 
 export const StreamController = {
-  // POST /streams
   async createStream(req: Request, res: Response) {
     try {
       const { episodeId, userId, time } = req.body;
@@ -25,7 +24,6 @@ export const StreamController = {
     }
   },
 
-  // GET /streams
   async getAllStreams(req: Request, res: Response) {
     try {
       const streams = await AppDataSource.getRepository(Stream)
@@ -40,7 +38,6 @@ export const StreamController = {
     }
   },
 
-  // GET /streams/:id
   async getStreamById(req: Request, res: Response) {
     try {
       const stream = await AppDataSource.getRepository(Stream)
@@ -56,7 +53,6 @@ export const StreamController = {
     }
   },
 
-  // GET /streams/:id/episode
   async getStreamEpisode(req: Request, res: Response) {
     try {
       const stream = await AppDataSource.getRepository(Stream)
@@ -71,7 +67,6 @@ export const StreamController = {
     }
   },
 
-  // GET /streams/:id/user
   async getStreamUser(req: Request, res: Response) {
     try {
       const stream = await AppDataSource.getRepository(Stream)
@@ -86,7 +81,6 @@ export const StreamController = {
     }
   },
 
-  // GET /streams/:id/episode/season
   async getStreamEpisodeSeason(req: Request, res: Response) {
     try {
       const stream = await AppDataSource.getRepository(Stream)
@@ -102,7 +96,6 @@ export const StreamController = {
     }
   },
 
-  // GET /streams/:id/episode/season/series
   async getStreamEpisodeSeasonSeries(req: Request, res: Response) {
     try {
       const stream = await AppDataSource.getRepository(Stream)
@@ -137,7 +130,6 @@ export const StreamController = {
   }
 },
 
-  // PATCH /streams/:id
   async updateStream(req: Request, res: Response) {
     try {
       const { time, episodeId, userId } = req.body;
@@ -158,8 +150,6 @@ export const StreamController = {
       res.status(500).json({ message: "Error updating stream", error });
     }
   },
-
-  // DELETE /streams/:id
   async deleteStream(req: Request, res: Response) {
     try {
       const result = await AppDataSource.getRepository(Stream)

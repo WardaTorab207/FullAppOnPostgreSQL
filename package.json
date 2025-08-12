@@ -49,6 +49,7 @@
     "minimist": "^1.2.8",
     "mkdirp": "^1.0.4",
     "multer": "^2.0.2",
+    "node-fetch": "^3.3.2",
     "normalize-path": "^3.0.0",
     "once": "^1.4.0",
     "path-is-absolute": "^1.0.1",
@@ -78,7 +79,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx watch src/index.ts"
+    "dev": "node init && tsx watch src/index.ts"
   },
   "keywords": [],
   "author": "",

@@ -7,7 +7,6 @@ import { Season } from "../entities/season";
 
 const genreRepo = AppDataSource.getRepository(Genre);
 
-// GET all genres
 export const getAllGenres = async (req: Request, res: Response) => {
   try {
     const genres = await genreRepo
@@ -21,7 +20,6 @@ export const getAllGenres = async (req: Request, res: Response) => {
   }
 };
 
-// GET genre by ID
 export const getGenreById = async (req: Request, res: Response) => {
   const { id } = req.params;
 
@@ -66,7 +64,6 @@ export const createGenre = async (req: Request, res: Response) => {
   }
 };
 
-// UPDATE genre
 export const updateGenre = async (req: Request, res: Response) => {
   const { id } = req.params;
   const { name, description } = req.body;
@@ -91,7 +88,6 @@ export const updateGenre = async (req: Request, res: Response) => {
   }
 };
 
-// DELETE genre
 export const deleteGenre = async (req: Request, res: Response) => {
   const { id } = req.params;
 
