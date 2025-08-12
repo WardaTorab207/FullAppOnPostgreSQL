@@ -70,7 +70,6 @@ async getEpisodeById(req: Request, res: Response) {
     }
   },
 
-  // 2. GET /episodes/:id/streams
   async getStreamsByEpisodeId(req: Request, res: Response) {
     const { id } = req.params;
     try {
@@ -85,7 +84,6 @@ async getEpisodeById(req: Request, res: Response) {
     }
   },
 
-  // 3. PATCH /episodes/:id
   async updateEpisodeById(req: Request, res: Response) {
     const { id } = req.params;
     const data = req.body;
@@ -106,7 +104,6 @@ async getEpisodeById(req: Request, res: Response) {
     }
   },
 
-  // 4. DELETE /episodes/:id
   async deleteEpisodeById(req: Request, res: Response) {
     const { id } = req.params;
 
